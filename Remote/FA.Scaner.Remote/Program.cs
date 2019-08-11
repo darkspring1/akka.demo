@@ -1,5 +1,5 @@
 ﻿using Akka.Actor;
-using FA.utils;
+using FA.Utils;
 
 namespace FA.Scaner.Remote
 {

@@ -1,7 +1,7 @@
 ﻿using Akka.Configuration;
 using System.IO;
 
-namespace FA.utils
+namespace FA.Utils
 {
     /// <summary>
     /// Used to load <see cref="WebCrawler.Shared.Config"/> objects from stand-alone HOCON files.

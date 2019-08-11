@@ -1,8 +1,10 @@
 ﻿using Akka.Actor;
+using Akka.Routing;
 using FA.Common.Actors;
 using FA.Common.Messages;
-using FA.utils;
+using FA.Utils;
 using System;
+using System.Threading.Tasks;
 
 namespace FA.Aggregator.Remote
 {
@@ -10,9 +12,11 @@ namespace FA.Aggregator.Remote
     {
         static void Main(string[] args)
         {
+            Task.Delay(5000).Wait();
+
             var faActorSystem = ActorSystem.Create("AggregatorSystem", HoconLoader.ParseConfig("fa.aggregator.remote.hocon"));
 
-            var agg = faActorSystem.ActorOf<AggregatorActor>("aggregator");
+            var agg = faActorSystem.ActorOf(Props.Create<AggregatorActor>().WithRouter(FromConfig.Instance), "aggregator");
 
             faActorSystem.ActorOf(Props.Create<ScanerSupervisorActor>(agg), "scaners");
            

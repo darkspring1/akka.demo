@@ -27,6 +27,49 @@
         "Value": 0.85
       }
     ]
+  },
+  {
+    "EventId": 3,
+    "MarketKind": "TwoWayMoneyLine",
+    "Outcomes": [
+      {
+        "Side": "Home",
+        "Value": 0.15
+      },
+      {
+        "Side": "Away",
+        "Value": 0.85
+      }
+    ]
+  },
+
+  {
+    "EventId": 4,
+    "MarketKind": "TwoWayMoneyLine",
+    "Outcomes": [
+      {
+        "Side": "Home",
+        "Value": 0.15
+      },
+      {
+        "Side": "Away",
+        "Value": 0.85
+      }
+    ]
+  },
+  {
+    "EventId": 5,
+    "MarketKind": "TwoWayMoneyLine",
+    "Outcomes": [
+      {
+        "Side": "Home",
+        "Value": 0.15
+      },
+      {
+        "Side": "Away",
+        "Value": 0.85
+      }
+    ]
   }
 
 

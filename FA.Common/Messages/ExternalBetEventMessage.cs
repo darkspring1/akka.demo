@@ -1,10 +1,11 @@
-﻿using FA.Common.Domain;
+﻿using Akka.Routing;
+using FA.Common.Domain;
 using System;
 
 namespace FA.Common.Messages
 {
 
-    class ExternalBetEventMessage
+    class ExternalBetEventMessage : IConsistentHashable
     {
         public ExternalBetEventMessage(Provider provider, int id, DateTime startTime)
         {
@@ -16,5 +17,7 @@ namespace FA.Common.Messages
         public Provider Provider { get; }
         public int Id { get; }
         public DateTime StartTime { get; }
+
+        public object ConsistentHashKey => Id;
     }
 }

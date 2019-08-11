@@ -14,8 +14,6 @@ namespace FA.Common.Actors
         private readonly Provider _provider;
         private readonly IActorRef _aggregator;
 
-        private string Name => Self.Path.Name;
-
         private Provider ParseProvider(string name)
         {
             if (name.Contains("asian"))
@@ -52,7 +50,7 @@ namespace FA.Common.Actors
 
             Receive<ScanCommand>(msg =>
             {
-                _log.Info($"{Name} Read information from feed...");
+                _log.Info("Read information from feed...");
                 foreach (var odd in Feed.Odds)
                 {
                     _aggregator.Tell(Convert(odd), Self);
@@ -66,7 +64,7 @@ namespace FA.Common.Actors
 
             Receive<ExceptionCommand>(msg =>
             {
-                _log.Info($"{Name} I have sent an exception command!");
+                _log.Info("I have sent an exception command!");
                 throw new System.Exception();
             });
             
@@ -74,7 +72,7 @@ namespace FA.Common.Actors
 
         protected override void PostStop()
         {
-            _log.Info($"{Name} stoped.");
+            _log.Info("Stoped.");
             base.PostStop();
         }
 

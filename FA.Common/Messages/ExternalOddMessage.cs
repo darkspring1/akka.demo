@@ -1,4 +1,5 @@
-﻿using FA.Common.Domain;
+﻿using Akka.Routing;
+using FA.Common.Domain;
 
 namespace FA.Common.Messages
 {
@@ -14,7 +15,7 @@ namespace FA.Common.Messages
         public decimal Value { get; set; }
     }
 
-    class ExternalOddMessage
+    class ExternalOddMessage : IConsistentHashable
     {
         public ExternalOddMessage(Provider provider, int eventId, MarketKind marketKind, ExternalOutcome[] outcomes)
         {
@@ -28,5 +29,7 @@ namespace FA.Common.Messages
         public int EventId { get; }
         public MarketKind MarketKind { get; }
         public ExternalOutcome[] Outcomes { get; }
+
+        public object ConsistentHashKey => EventId;
     }
 }

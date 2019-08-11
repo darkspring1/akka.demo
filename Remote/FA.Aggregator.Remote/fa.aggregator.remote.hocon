@@ -15,6 +15,11 @@
               /scaners {
                 remote = "akka.tcp://AggregatorSystem@127.0.0.1:8091"
               }
+
+			  /aggregator {
+				router = consistent-hashing-pool
+				nr-of-instances = 3
+			  }
 		
         }
 

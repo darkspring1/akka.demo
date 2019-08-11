@@ -1,7 +1,7 @@
 ﻿using Akka.Actor;
 using FA.Common.Actors;
 using FA.Common.Messages;
-using FA.utils;
+using FA.Utils;
 using System;
 
 namespace FA.Aggregator
