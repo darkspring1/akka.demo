@@ -1,6 +1,6 @@
-﻿using FA.Aggregator.Domain;
+﻿using FA.Common.Domain;
 
-namespace FA.Aggregator.Messages
+namespace FA.Common.Messages
 {
     public class ExternalOutcome
     {

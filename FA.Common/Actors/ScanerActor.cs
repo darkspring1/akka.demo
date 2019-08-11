@@ -1,11 +1,11 @@
 ﻿using Akka.Actor;
-using FA.Aggregator.Domain;
-using FA.Aggregator.FeedSource;
-using FA.Aggregator.Messages;
+using FA.Common.Domain;
+using FA.Common.FeedSource;
+using FA.Common.Messages;
 
-namespace FA.Aggregator.Actors
+namespace FA.Common.Actors
 {
-    class ScanerActor : ReceiveActor
+    public class ScanerActor : ReceiveActor
     {
         private readonly Provider _provider;
         private readonly ICanTell _aggregator;

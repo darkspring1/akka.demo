@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -15,17 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\fa.utils\fa.utils.csproj" />
+    <ProjectReference Include="..\..\FA.Common\FA.Common.csproj" />
+    <ProjectReference Include="..\..\fa.utils\fa.utils.csproj" />
+    
   </ItemGroup>
 
   <ItemGroup>
     <None Update="fa.aggregator.hocon">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="FeedSource\betEvents.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="FeedSource\odds.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

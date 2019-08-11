@@ -1,4 +1,4 @@
-﻿namespace FA.Aggregator.Domain
+﻿namespace FA.Common.Domain
 {
 
     public class Outcome

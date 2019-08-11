@@ -1,12 +1,13 @@
 ﻿using Akka.Actor;
 using Akka.Event;
-using FA.Aggregator.Messages;
+using FA.Aggregator;
+using FA.Common.Messages;
 using System.Collections.Generic;
 
-namespace FA.Aggregator.Actors
+namespace FA.Common.Actors
 {
 
-    class AggregatorActor : ReceiveActor
+    public class AggregatorActor : ReceiveActor
     {
         private readonly ILoggingAdapter _log = Logging.GetLogger(Context);
 

@@ -1,6 +1,6 @@
 ﻿using Akka.Actor;
-using FA.Aggregator.Actors;
-using FA.Aggregator.Messages;
+using FA.Common.Actors;
+using FA.Common.Messages;
 using FA.utils;
 using System;
 

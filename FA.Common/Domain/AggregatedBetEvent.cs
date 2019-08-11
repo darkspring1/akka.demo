@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FA.Aggregator.Domain
+namespace FA.Common.Domain
 {
     class AggregatedBetEvent
     {

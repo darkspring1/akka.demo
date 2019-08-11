@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
-using FA.Aggregator.Domain;
+using FA.Common.Domain;
 using Newtonsoft.Json;
 
-namespace FA.Aggregator.FeedSource
+namespace FA.Common.FeedSource
 {
     public class BetEventDto
     {

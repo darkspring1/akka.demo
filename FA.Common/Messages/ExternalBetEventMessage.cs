@@ -1,7 +1,7 @@
-﻿using FA.Aggregator.Domain;
+﻿using FA.Common.Domain;
 using System;
 
-namespace FA.Aggregator.Messages
+namespace FA.Common.Messages
 {
 
     class ExternalBetEventMessage

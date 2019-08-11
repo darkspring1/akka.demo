@@ -1,6 +1,6 @@
 ﻿using Akka.Actor;
-using FA.Aggregator.Domain;
-using FA.Aggregator.Messages;
+using FA.Common.Domain;
+using FA.Common.Messages;
 using System.Linq;
 
 namespace FA.Aggregator
