@@ -3,7 +3,8 @@
     loglevel = DEBUG
     log-config-on-start = on        
     actor {
-		
+		provider = remote
+
         debug {  
               receive = on 
               autoreceive = on
@@ -11,5 +12,14 @@
               event-stream = on
               unhandled = on
         }
+
+		
     }
+
+	remote {
+			dot-netty.tcp {
+				port = 8091
+				hostname = 127.0.0.1
+			}
+	}
 }
