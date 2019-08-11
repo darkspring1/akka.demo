@@ -1,6 +1,6 @@
 ﻿akka {  
-    stdout-loglevel = DEBUG
-    loglevel = DEBUG
+    stdout-loglevel = Info
+    loglevel = Info
     log-config-on-start = on        
     actor {
 		provider = remote

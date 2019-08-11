@@ -12,11 +12,11 @@ namespace FA.Aggregator.Remote
         {
             var faActorSystem = ActorSystem.Create("AggregatorSystem", HoconLoader.ParseConfig("fa.aggregator.remote.hocon"));
 
-            var asian = faActorSystem.ActorOf<ScanerActor>("scaner_asian");
-            var greenFeed = faActorSystem.ActorOf<ScanerActor>("scaner_greenFeed");
-            var aggregator = faActorSystem.ActorOf<AggregatorActor>("aggregator");
+            faActorSystem.ActorOf<ScanerSupervisorActor>("scaners");
+           
+            faActorSystem.ActorOf<AggregatorActor>("aggregator");
 
-            var scaners = faActorSystem.ActorSelection("/user/scaner*");
+            var scaners = faActorSystem.ActorSelection("/user/scaners/*");
 
             faActorSystem
            .Scheduler
@@ -24,8 +24,19 @@ namespace FA.Aggregator.Remote
                 TimeSpan.FromSeconds(5),
                 scaners, new ScanCommand(), ActorRefs.NoSender);
 
-
-            
+            string cmd = null;
+            while (cmd != "exit")
+            {
+                cmd = Console.ReadLine();
+                if (cmd == "exc")
+                {
+                    scaners.Tell(new ExceptionCommand());
+                }
+                else
+                {
+                    Console.WriteLine($"Unknown command '{cmd}'");
+                }
+            }
 
             faActorSystem.WhenTerminated.Wait();
             

@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Akka.Event;
 using FA.Common.Domain;
 using FA.Common.Messages;
 using System.Linq;
@@ -7,6 +8,7 @@ namespace FA.Aggregator
 {
     class BetEventActor : ReceiveActor
     {
+        private readonly ILoggingAdapter _log = Logging.GetLogger(Context);
 
         private AggregatedBetEvent _state;
 
@@ -15,27 +17,47 @@ namespace FA.Aggregator
             return outcomes.Select(x => new Outcome(x.Side, x.Value)).ToArray();
         }
 
-        public BetEventActor()
+        private void WaitingNewEvent()
         {
             Receive<ExternalBetEventMessage>(msg =>
             {
-                if (_state == null)
-                {
-                    _state = new AggregatedBetEvent();
-                }
-
+                _state = new AggregatedBetEvent();
                 _state.Id = msg.Id;
+                _state.StartTime = msg.StartTime;
+                Become(ReadyToWork);
+            });
+
+
+            Receive<ExternalOddMessage>(msg =>
+            {
+                _log.Info("I'm waiting event.");
+            });
+        }
+
+        private void ReadyToWork()
+        {
+            Receive<ExternalBetEventMessage>(msg =>
+            {
                 _state.StartTime = msg.StartTime;
             });
 
 
             Receive<ExternalOddMessage>(msg =>
             {
-                if (_state != null)
-                {
-                    _state.AddExternalOdd(msg.Provider, msg.MarketKind, ConvertOutcomes(msg.Outcomes));
-                }
+                _state.AddExternalOdd(msg.Provider, msg.MarketKind, ConvertOutcomes(msg.Outcomes));
             });
+        }
+
+        public BetEventActor()
+        {
+            WaitingNewEvent();
+        }
+
+
+        protected override void PreStart()
+        {
+            _log.Info($"{nameof(BetEventActor.PreRestart)}");
+            base.PreStart();
         }
     }
 }

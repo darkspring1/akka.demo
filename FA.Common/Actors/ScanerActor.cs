@@ -1,14 +1,20 @@
 ﻿using Akka.Actor;
+using Akka.Event;
 using FA.Common.Domain;
 using FA.Common.FeedSource;
 using FA.Common.Messages;
 
 namespace FA.Common.Actors
 {
+
+
     public class ScanerActor : ReceiveActor
     {
+        private readonly ILoggingAdapter _log = Logging.GetLogger(Context);
         private readonly Provider _provider;
         private readonly ICanTell _aggregator;
+
+        private string Name => Self.Path.Name;
 
         private Provider ParseProvider(string name)
         {
@@ -45,6 +51,7 @@ namespace FA.Common.Actors
             _aggregator = Context.ActorSelection("/user/aggregator");
             Receive<ScanCommand>(msg =>
             {
+                _log.Info($"{Name} Read information from feed...");
                 foreach (var odd in Feed.Odds)
                 {
                     _aggregator.Tell(Convert(odd), Self);
@@ -55,7 +62,20 @@ namespace FA.Common.Actors
                     _aggregator.Tell(Convert(betEvent), Self);
                 }
             });
+
+            Receive<ExceptionCommand>(msg =>
+            {
+                _log.Info($"{Name} I have sent an exception command!");
+                throw new System.Exception();
+            });
             
         }
+
+        protected override void PostStop()
+        {
+            _log.Info($"{Name} stoped.");
+            base.PostStop();
+        }
+
     }
 }

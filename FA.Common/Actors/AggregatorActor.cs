@@ -42,7 +42,7 @@ namespace FA.Common.Actors
 
         protected override void PreStart()
         {
-            _log.Debug($"{nameof(AggregatorActor.PreRestart)}");
+            _log.Info($"{nameof(AggregatorActor)}.{nameof(PreRestart)}");
             base.PreStart();
         }
     }

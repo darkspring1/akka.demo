@@ -1,6 +1,6 @@
 ﻿akka {  
-    stdout-loglevel = DEBUG
-    loglevel = DEBUG
+    stdout-loglevel = Info
+    loglevel = Info
     log-config-on-start = on        
     actor {
 		provider = remote
@@ -12,17 +12,16 @@
               unhandled = on
         }
 		deployment {
-              /scaner_asian {
-                remote = "akka.tcp://ScanerSystem@127.0.0.1:8091"
+              /scaners {
+                remote = "akka.tcp://AggregatorSystem@127.0.0.1:8091"
               }
-			  /scaner_greenFeed {
-                remote = "akka.tcp://ScanerSystem@127.0.0.1:8091"
-              }
+		
         }
 
     }
 
 	remote {
+		startup-timeout = 10 s
 		dot-netty.tcp {
 			port = 0
 			hostname = 127.0.0.1
