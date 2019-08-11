@@ -1,0 +1,33 @@
+﻿[
+  {
+    "eventId": 1,
+    "MarketKind": "TwoWayMoneyLine",
+    "Outcomes": [
+      {
+        "Side": "Home",
+        "Value": 0.10
+      },
+      {
+        "Side": "Away",
+        "Value": 0.90
+      }
+    ]
+  },
+
+  {
+    "EventId": 2,
+    "MarketKind": "TwoWayMoneyLine",
+    "Outcomes": [
+      {
+        "Side": "Home",
+        "Value": 0.15
+      },
+      {
+        "Side": "Away",
+        "Value": 0.85
+      }
+    ]
+  }
+
+
+]
