@@ -21,7 +21,7 @@
     }
 
 	remote {
-		startup-timeout = 10 s
+	
 		dot-netty.tcp {
 			port = 0
 			hostname = 127.0.0.1

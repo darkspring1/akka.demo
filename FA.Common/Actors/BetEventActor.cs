@@ -12,6 +12,8 @@ namespace FA.Aggregator
 
         private AggregatedBetEvent _state;
 
+        private string Name => Self.Path.Name;
+
         private Outcome[] ConvertOutcomes(ExternalOutcome[] outcomes)
         {
             return outcomes.Select(x => new Outcome(x.Side, x.Value)).ToArray();
@@ -21,6 +23,7 @@ namespace FA.Aggregator
         {
             Receive<ExternalBetEventMessage>(msg =>
             {
+                _log.Info($"{Name} recive {nameof(ExternalBetEventMessage)}");
                 _state = new AggregatedBetEvent();
                 _state.Id = msg.Id;
                 _state.StartTime = msg.StartTime;
@@ -30,6 +33,7 @@ namespace FA.Aggregator
 
             Receive<ExternalOddMessage>(msg =>
             {
+                _log.Info($"{Name} recive {nameof(ExternalOddMessage)}");
                 _log.Info("I'm waiting event.");
             });
         }
@@ -38,12 +42,14 @@ namespace FA.Aggregator
         {
             Receive<ExternalBetEventMessage>(msg =>
             {
+                _log.Info($"{Name} recive {nameof(ExternalBetEventMessage)}");
                 _state.StartTime = msg.StartTime;
             });
 
 
             Receive<ExternalOddMessage>(msg =>
             {
+                _log.Info($"{Name} recive {nameof(ExternalOddMessage)}");
                 _state.AddExternalOdd(msg.Provider, msg.MarketKind, ConvertOutcomes(msg.Outcomes));
             });
         }
@@ -53,10 +59,9 @@ namespace FA.Aggregator
             WaitingNewEvent();
         }
 
-
         protected override void PreStart()
         {
-            _log.Info($"{nameof(BetEventActor.PreRestart)}");
+            _log.Info($"{nameof(BetEventActor)}.{nameof(PreRestart)}");
             base.PreStart();
         }
     }

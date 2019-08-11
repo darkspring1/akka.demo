@@ -11,10 +11,11 @@ namespace FA.Aggregator
         static void Main(string[] args)
         {
             var faActorSystem = ActorSystem.Create("faActorSystem", HoconLoader.ParseConfig("fa.aggregator.hocon"));
-            
-            var asian = faActorSystem.ActorOf<ScanerActor>("scaner_asian");
-            var greenFeed = faActorSystem.ActorOf<ScanerActor>("scaner_greenFeed");
+
             var aggregator = faActorSystem.ActorOf<AggregatorActor>("aggregator");
+            var asian = faActorSystem.ActorOf(Props.Create<ScanerActor>(aggregator), "scaner_asian");
+            var greenFeed = faActorSystem.ActorOf(Props.Create<ScanerActor>(aggregator), "scaner_greenFeed");
+            
            
             var scaners = faActorSystem.ActorSelection("/user/scaner*");
 

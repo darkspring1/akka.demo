@@ -12,7 +12,7 @@ namespace FA.Common.Actors
     {
         private readonly ILoggingAdapter _log = Logging.GetLogger(Context);
         private readonly Provider _provider;
-        private readonly ICanTell _aggregator;
+        private readonly IActorRef _aggregator;
 
         private string Name => Self.Path.Name;
 
@@ -45,10 +45,11 @@ namespace FA.Common.Actors
             return new ExternalBetEventMessage(_provider, dto.Id, dto.StartTime);
         }
 
-        public ScanerActor()
+        public ScanerActor(IActorRef aggregator)
         {
             _provider = ParseProvider(Self.Path.Name);
-            _aggregator = Context.ActorSelection("/user/aggregator");
+            _aggregator = aggregator;
+
             Receive<ScanCommand>(msg =>
             {
                 _log.Info($"{Name} Read information from feed...");
