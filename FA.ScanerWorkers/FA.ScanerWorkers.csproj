@@ -6,16 +6,19 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Akka.Remote" Version="1.3.14" />
+    <PackageReference Include="Akka.Cluster" Version="1.3.14" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FA.Common\FA.Common.csproj" />
-    <ProjectReference Include="..\..\fa.utils\fa.utils.csproj" />
+    <ProjectReference Include="..\FA.Common\FA.Common.csproj" />
+    <ProjectReference Include="..\fa.utils\fa.utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="app.hocon">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="fa.seednode.cluster.hocon">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

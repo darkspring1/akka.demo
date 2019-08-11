@@ -1,0 +1,67 @@
+﻿akka {  
+    stdout-loglevel = Info
+    loglevel = Info
+    log-config-on-start = on        
+    actor
+	{
+		provider = cluster
+        debug
+		{  
+              receive = on 
+              autoreceive = on
+              lifecycle = on
+              event-stream = on
+              unhandled = on
+        }
+		
+		deployment
+		{
+			/scaners/asian
+			{
+				router = round-robin-pool
+				nr-of-instances = 10
+				cluster {
+					enabled = on
+					max-nr-of-instances-per-node = 3
+					use-role = scaner
+				}
+			}
+			/scaners/greenFeed
+			{
+				router = round-robin-pool
+				nr-of-instances = 10
+				cluster {
+					enabled = on
+					max-nr-of-instances-per-node = 3
+					use-role = scaner
+				}
+			}
+
+			/aggregator
+			{
+					router = consistent-hashing-pool
+					nr-of-instances = 10
+					cluster {
+						enabled = on
+						max-nr-of-instances-per-node = 3
+						use-role = aggregator
+					}
+			}
+		}
+
+    }
+
+	remote
+	{
+		dot-netty.tcp {
+			port = 0
+			hostname = olt
+		}
+	}
+
+	cluster {
+        seed-nodes = ["akka.tcp://FA@olt:4053"]
+		roles = ["config"]
+        #auto-down-unreachable-after = 30s
+    }
+}

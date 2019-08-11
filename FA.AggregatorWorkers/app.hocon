@@ -1,0 +1,30 @@
+﻿akka {  
+    stdout-loglevel = Info
+    loglevel = Info
+    log-config-on-start = on        
+    actor {
+		provider = cluster
+        debug {  
+              receive = on 
+              autoreceive = on
+              lifecycle = on
+              event-stream = on
+              unhandled = on
+        }
+
+    }
+
+	remote {
+	
+		dot-netty.tcp {
+			port = 0
+			hostname = olt
+		}
+	}
+
+	cluster {
+        seed-nodes = ["akka.tcp://FA@olt:4053"]
+		roles = ["aggregator"]
+        #auto-down-unreachable-after = 30s
+    }
+}
