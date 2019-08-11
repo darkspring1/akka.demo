@@ -1,5 +1,5 @@
 ﻿using Akka.Actor;
-using FA.Utils;
+using FA.Common;
 
 namespace FA.Scaner.Remote
 {
@@ -7,7 +7,7 @@ namespace FA.Scaner.Remote
     {
         static void Main(string[] args)
         {
-            var actorSystem = ActorSystem.Create("AggregatorSystem", HoconLoader.ParseConfig("fa.scaner.remote.hocon"));
+            var actorSystem = ActorSystem.Create(Constants.ActorSystemName, Utils.ParseConfig("app.hocon"));
             actorSystem.WhenTerminated.Wait();
         }
     }

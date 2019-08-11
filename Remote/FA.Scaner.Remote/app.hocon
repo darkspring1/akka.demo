@@ -13,6 +13,23 @@
               unhandled = on
         }
 
+		deployment {
+              
+			  /scaners/asian
+				{
+					router = round-robin-pool
+					nr-of-instances = 2
+				}
+				/scaners/greenFeed
+				{
+					router = round-robin-pool
+					nr-of-instances = 2
+				}
+
+			 
+		
+        }
+
 		
     }
 

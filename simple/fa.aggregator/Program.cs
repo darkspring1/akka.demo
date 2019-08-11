@@ -1,7 +1,6 @@
 ﻿using Akka.Actor;
 using FA.Common.Actors;
-using FA.Common.Messages;
-using FA.Utils;
+using FA.Common;
 using System;
 
 namespace FA.Aggregator
@@ -10,23 +9,16 @@ namespace FA.Aggregator
     {
         static void Main(string[] args)
         {
-            var faActorSystem = ActorSystem.Create("faActorSystem", HoconLoader.ParseConfig("fa.aggregator.hocon"));
+            var actorSystem = ActorSystem.Create(Constants.ActorSystemName, Utils.ParseConfig("app.hocon"));
 
-            var aggregator = faActorSystem.ActorOf<AggregatorActor>("aggregator");
-            var asian = faActorSystem.ActorOf(Props.Create<ScanerActor>(aggregator), "scaner_asian");
-            var greenFeed = faActorSystem.ActorOf(Props.Create<ScanerActor>(aggregator), "scaner_greenFeed");
-            
-           
-            var scaners = faActorSystem.ActorSelection("/user/scaner*");
+            var aggregator = actorSystem.ActorOf(Props.Create<AggregatorActor>(), "aggregator");
 
-            faActorSystem
-           .Scheduler
-           .ScheduleTellRepeatedly(TimeSpan.FromSeconds(0),
-                TimeSpan.FromSeconds(5),
-                scaners, new ScanCommand(), ActorRefs.NoSender);
+            var supervisor = actorSystem.ActorOf(Props.Create<ScanerSupervisorActor>(aggregator), "scaners");
 
+            Utils.CLI(supervisor);
 
             Console.WriteLine("Press any key.");
+
             Console.ReadKey();
         }
     }

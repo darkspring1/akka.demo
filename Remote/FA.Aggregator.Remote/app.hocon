@@ -13,8 +13,19 @@
         }
 		deployment {
               /scaners {
-                remote = "akka.tcp://AggregatorSystem@127.0.0.1:8091"
+                remote = "akka.tcp://FA@127.0.0.1:8091"
               }
+
+			  /scaners/asian
+				{
+					router = round-robin-pool
+					nr-of-instances = 2
+				}
+				/scaners/greenFeed
+				{
+					router = round-robin-pool
+					nr-of-instances = 2
+				}
 
 			  /aggregator {
 				router = consistent-hashing-pool

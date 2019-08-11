@@ -1,6 +1,6 @@
 ﻿using Akka.Actor;
 using FA.Common;
-using FA.Utils;
+using FA.Common;
 
 namespace FA.SeedNode
 {
@@ -8,7 +8,7 @@ namespace FA.SeedNode
     {
         static void Main(string[] args)
         {
-            var faActorSystem = ActorSystem.Create(Constants.ActorSystemName, HoconLoader.ParseConfig("app.hocon"));
+            var faActorSystem = ActorSystem.Create(Constants.ActorSystemName, Utils.ParseConfig("app.hocon"));
             faActorSystem.WhenTerminated.Wait();
         }
     }

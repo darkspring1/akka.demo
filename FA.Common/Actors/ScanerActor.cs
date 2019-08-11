@@ -70,6 +70,12 @@ namespace FA.Common.Actors
             
         }
 
+        protected override void PreStart()
+        {
+            _log.Info($"{nameof(ScanerActor)}.{nameof(PreStart)}");
+            base.PreStart();
+        }
+
         protected override void PostStop()
         {
             _log.Info("Stoped.");

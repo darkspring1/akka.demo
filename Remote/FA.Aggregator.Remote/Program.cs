@@ -1,9 +1,7 @@
 ﻿using Akka.Actor;
 using Akka.Routing;
 using FA.Common.Actors;
-using FA.Common.Messages;
-using FA.Utils;
-using System;
+using FA.Common;
 using System.Threading.Tasks;
 
 namespace FA.Aggregator.Remote
@@ -14,27 +12,13 @@ namespace FA.Aggregator.Remote
         {
             Task.Delay(5000).Wait();
 
-            var faActorSystem = ActorSystem.Create("AggregatorSystem", HoconLoader.ParseConfig("app.hocon"));
+            var faActorSystem = ActorSystem.Create(Constants.ActorSystemName, Utils.ParseConfig("app.hocon"));
 
             var agg = faActorSystem.ActorOf(Props.Create<AggregatorActor>().WithRouter(FromConfig.Instance), "aggregator");
 
-            var supervisor = faActorSystem.ActorOf(Props.Create<ScanerSupervisorActor>(agg), "scaners");
-           
-            
+            var supervisor = faActorSystem.ActorOf(Props.Create<ScanerSupervisorActorWithRouters>(agg), "scaners");
 
-            string cmd = null;
-            while (cmd != "exit")
-            {
-                cmd = Console.ReadLine();
-                if (cmd == "exc")
-                {
-                    supervisor.Tell(new ExceptionCommand());
-                }
-                else
-                {
-                    Console.WriteLine($"Unknown command '{cmd}'");
-                }
-            }
+            Utils.CLI(supervisor);
 
             faActorSystem.WhenTerminated.Wait();
             

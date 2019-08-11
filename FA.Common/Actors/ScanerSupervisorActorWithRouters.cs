@@ -1,18 +1,18 @@
 ﻿using Akka.Actor;
 using Akka.Event;
+using Akka.Routing;
 using FA.Common.Messages;
 using System;
 
 namespace FA.Common.Actors
 {
-
-    public class ScanerSupervisorActor : ReceiveActor
+    public class ScanerSupervisorActorWithRouters : ReceiveActor
     {
         private readonly ILoggingAdapter _log = Logging.GetLogger(Context);
-        public ScanerSupervisorActor(IActorRef aggregator)
+        public ScanerSupervisorActorWithRouters(IActorRef aggregator)
         {
-            var asian = Context.ActorOf(Props.Create<ScanerActor>(aggregator), "asian");
-            var greenFeed = Context.ActorOf(Props.Create<ScanerActor>(aggregator), "greenFeed");
+            var asian = Context.ActorOf(Props.Create<ScanerActor>(aggregator).WithRouter(FromConfig.Instance), "asian");
+            var greenFeed = Context.ActorOf(Props.Create<ScanerActor>(aggregator).WithRouter(FromConfig.Instance), "greenFeed");
 
             Context.System.Scheduler.ScheduleTellRepeatedly(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5), asian, new ScanCommand(), Self);
             Context.System.Scheduler.ScheduleTellRepeatedly(TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5), greenFeed, new ScanCommand(), Self);

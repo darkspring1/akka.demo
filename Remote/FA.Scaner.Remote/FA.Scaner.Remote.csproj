@@ -11,11 +11,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\FA.Common\FA.Common.csproj" />
-    <ProjectReference Include="..\..\fa.utils\fa.utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="fa.scaner.remote.hocon">
+    <None Update="app.hocon">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
